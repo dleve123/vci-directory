@@ -29,7 +29,7 @@ class IssueLevel(Enum):
 
 
 class IssueType(Enum):
-    
+
     ISS_ENDS_WITH_TRAILING_SLASH = (auto(), IssueLevel.ERROR)
     FETCH_EXCEPTION = (auto(), IssueLevel.ERROR)
     KEYS_PROPERTY_MISSING = (auto(), IssueLevel.ERROR)
@@ -44,7 +44,7 @@ class IssueType(Enum):
     CANONICAL_ISS_SELF_REFERENCE = (auto(), IssueLevel.ERROR)
     CANONICAL_ISS_REFERENCE_INVALID = (auto(), IssueLevel.ERROR)
     CANONICAL_ISS_MULTIHOP_REFERENCE = (auto(), IssueLevel.ERROR)
-    ## TODO - convert CORS issues to ERROR in the future 
+    ## TODO - convert CORS issues to ERROR in the future
     CORS_HEADER_MISSING = (auto(), IssueLevel.WARNING)
     CORS_HEADER_INCORRECT = (auto(), IssueLevel.WARNING)
 
@@ -115,6 +115,25 @@ def read_issuer_entries_from_tsv_file(
                 entries[iss] = entry
         return list(entries.values())
 
+def read_issuer_entries_from_json(
+    input_dict: dict
+) -> List[IssuerEntry]:
+    entries = {}
+    for entry_dict in input_dict[PARTICIPATING_ISSUERS_KEY]:
+        name = entry_dict[NAME_KEY].strip()
+        iss = entry_dict[ISS_KEY].strip()
+        website = entry_dict[WEBSITE_KEY].strip() if entry_dict.get(WEBSITE_KEY) else None
+        canonical_iss = entry_dict[CANONICAL_ISS_KEY].strip() if entry_dict.get(CANONICAL_ISS_KEY) else None
+        entry = IssuerEntry(
+            name=name,
+            iss=iss,
+            website=website,
+            canonical_iss=canonical_iss
+        )
+        entries[iss] = entry
+
+    return list(entries.values())
+
 def read_issuer_entries_from_json_file(
     input_file: str
 ) -> List[IssuerEntry]:
@@ -137,7 +156,7 @@ def read_issuer_entries_from_json_file(
         return list(entries.values())
 
 def issuer_entry_to_dict(issuer_entry: IssuerEntry) -> dict:
-    d = {ISS_KEY: issuer_entry.iss, NAME_KEY: issuer_entry.name} 
+    d = {ISS_KEY: issuer_entry.iss, NAME_KEY: issuer_entry.name}
     if issuer_entry.website:
         d[WEBSITE_KEY] = issuer_entry.website
     if issuer_entry.canonical_iss:
@@ -180,7 +199,7 @@ def validate_key(jwk_dict) -> Tuple[bool, List[Issue]]:
             Issue(f'Key with kid={kid} contains private key material', IssueType.KEY_CONTAINS_PRIVATE_MATERIAL)
         ]
         return [False, issues]
-    
+
     is_valid = True
     issues = []
     ## check that use matches expected use
@@ -316,7 +335,7 @@ async def validate_issuer(
         return (False, issues)
     else:
         jwks_url = f'{iss}/.well-known/jwks.json'
-    
+
     try:
         (jwks, response_headers) = await fetch_jwks(jwks_url)
         headers_issues = validate_response_headers(response_headers)
@@ -330,7 +349,7 @@ async def validate_issuer(
         issues = [
             Issue(f'An exception occurred when fetching {jwks_url}: {ex}', IssueType.FETCH_EXCEPTION)
         ]
-        return (False, issues) 
+        return (False, issues)
 
 async def validate_entry(
     issuer_entry: IssuerEntry,
@@ -443,11 +462,11 @@ def analyze_results(
                 print(f'{result.issuer_entry.iss} is INVALID')
                 for error in errors:
                     print(f'{result.issuer_entry.iss}: {error.description}')
-        
+
         if show_errors_and_warnings and show_warnings:
             warnings = [issue for issue in result.issues if issue.type.level == IssueLevel.WARNING]
             for warning in warnings:
-                print(f'{result.issuer_entry.iss} warning: {warning}') 
+                print(f'{result.issuer_entry.iss} warning: {warning}')
 
     return is_valid
 
