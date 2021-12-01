@@ -1,0 +1,7 @@
+iss,month-year,state,shc-type,shc-total-count-issued
+"https://simple.example.com",11-2021,NY,immunization,100
+"https://simple.example.com",11-2021,NY,laboratory,250
+"https://simple.example.com",11-2021,NJ,immunization,75
+"https://simple.example.com",11-2021,NJ,laboratory,200
+"https://simple.example.com",12-2021,NY,laboratory,200
+"https://simple.example.com",12-2021,NY,immunization,50
