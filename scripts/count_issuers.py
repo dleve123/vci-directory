@@ -3,6 +3,7 @@ import common
 import json
 from git import Repo, Commit
 from typing import Iterator
+import pandas as pd
 
 
 def count_issuers(issuers_json: dict) -> int:
@@ -27,12 +28,14 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     commits_changing_issuers_manifest = get_commits_changing_issuers_manifest(args.input_filepath)
+    data = []
     for commit in commits_changing_issuers_manifest:
         vci_issuers_at_commit = json.load(
             commit.tree[args.input_filepath].data_stream
         )
-        num_issuers = count_issuers(vci_issuers_at_commit)
+        total_num_issuers = count_issuers(vci_issuers_at_commit)
+        commit_datetime = commit.committed_datetime.isoformat()
+        data.append([commit_datetime, total_num_issuers])
 
-        print('commit datetime:', commit.committed_datetime.isoformat())
-        print('number of issuers:', num_issuers)
-        print('---')
+    df = pd.DataFrame(data, columns=['commit_datetime', 'total_num_issuers'])
+    print(df.to_csv(index=False))
