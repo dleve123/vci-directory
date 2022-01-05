@@ -115,25 +115,6 @@ def read_issuer_entries_from_tsv_file(
                 entries[iss] = entry
         return list(entries.values())
 
-def read_issuer_entries_from_json(
-    input_dict: dict
-) -> List[IssuerEntry]:
-    entries = {}
-    for entry_dict in input_dict[PARTICIPATING_ISSUERS_KEY]:
-        name = entry_dict[NAME_KEY].strip()
-        iss = entry_dict[ISS_KEY].strip()
-        website = entry_dict[WEBSITE_KEY].strip() if entry_dict.get(WEBSITE_KEY) else None
-        canonical_iss = entry_dict[CANONICAL_ISS_KEY].strip() if entry_dict.get(CANONICAL_ISS_KEY) else None
-        entry = IssuerEntry(
-            name=name,
-            iss=iss,
-            website=website,
-            canonical_iss=canonical_iss
-        )
-        entries[iss] = entry
-
-    return list(entries.values())
-
 def read_issuer_entries_from_json_file(
     input_file: str
 ) -> List[IssuerEntry]:
