@@ -1,13 +1,41 @@
 import argparse
-import common
 import json
 from git import Repo, Commit
-from typing import Iterator
+from collections import namedtuple
+from typing import Iterator, List
 import pandas as pd
+
+IssuerEntry = namedtuple('IssuerEntry', 'name iss website canonical_iss')
+NAME_KEY = 'name'
+ISS_KEY = 'iss'
+WEBSITE_KEY = 'website'
+CANONICAL_ISS_KEY = 'canonical_iss'
+PARTICIPATING_ISSUERS_KEY = 'participating_issuers'
+
+# This function was lifted from common.py instead of implemented there in effort
+# to maintain strong boundaries between analytics code and validation code.
+def read_issuer_entries_from_json(
+    input_dict: dict
+) -> List[IssuerEntry]:
+    entries = {}
+    for entry_dict in input_dict[PARTICIPATING_ISSUERS_KEY]:
+        name = entry_dict[NAME_KEY].strip()
+        iss = entry_dict[ISS_KEY].strip()
+        website = entry_dict[WEBSITE_KEY].strip() if entry_dict.get(WEBSITE_KEY) else None
+        canonical_iss = entry_dict[CANONICAL_ISS_KEY].strip() if entry_dict.get(CANONICAL_ISS_KEY) else None
+        entry = IssuerEntry(
+            name=name,
+            iss=iss,
+            website=website,
+            canonical_iss=canonical_iss
+        )
+        entries[iss] = entry
+
+    return list(entries.values())
 
 
 def count_issuers(issuers_json: dict) -> int:
-    entries_from_json = common.read_issuer_entries_from_json(issuers_json)
+    entries_from_json = read_issuer_entries_from_json(issuers_json)
     num_issuers = len(entries_from_json)
 
     return num_issuers
