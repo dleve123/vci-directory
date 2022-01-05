@@ -31,11 +31,15 @@ st.plotly_chart(issuer_count_fig)
 
 st.header("US Issuer Coverage")
 
+states_with_issuers = list(issuers_by_state_data.keys())
+issuers_in_states = list(issuers_by_state_data.values())
+hover_text = list(zip(states_with_issuers, issuers_in_states))
 issuers_count_by_state = [len(issuers) for state, issuers in issuers_by_state_data.items()]
 issuers_by_state_map_fig = go.Figure(
     data=go.Choropleth(
-        locations=list(issuers_by_state_data.keys()),
+        locations=states_with_issuers,
         z=issuers_count_by_state,
+        text=hover_text,
         locationmode="USA-states",
         colorscale="Greens",
         colorbar_title="Count of VCI Issuers",
