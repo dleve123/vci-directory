@@ -1,0 +1,26 @@
+{
+  "CA": [
+    "https://myvaccinerecord.cdph.ca.gov/"
+  ],
+  "LA": [
+    "https://ldh.la.gov/index.cfm/faq/category/142"
+  ],
+  "UT": [
+    "https://docket.care"
+  ],
+  "HI": [
+    "https://hawaiicovid19.com/smart-health-card/"
+  ],
+  "NJ": [
+    "https://docket.care"
+  ],
+  "VA": [
+    "https://vaccinate.virginia.gov/"
+  ],
+  "NY": [
+    "https://covid19vaccine.health.ny.gov/excelsior-pass-and-excelsior-pass-plus"
+  ],
+  "WA": [
+    "https://waverify.doh.wa.gov/"
+  ]
+}
