@@ -9,6 +9,6 @@
       "--disable=missing-class-docstring",
       "--disable=missing-function-docstring",
     ],
-    "python.linting.mypyEnabled": false
+    "python.linting.mypyEnabled": false,
+    "python.formatting.provider": "black"
   }
-  
