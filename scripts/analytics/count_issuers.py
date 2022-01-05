@@ -42,6 +42,7 @@ def count_issuers(issuers_json: dict) -> int:
 
 
 def get_commits_changing_issuers_manifest(manifest_filepath: str) -> Iterator[Commit]:
+    # TODO: should this only be run on `main`? Maybe.
     repo = Repo(".")
     scoped_commits = filter(
         lambda commit: manifest_filepath in commit.stats.files.keys(),
