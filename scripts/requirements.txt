@@ -20,4 +20,5 @@ pandas
 ipykernel
 plotly # interactive plotting
 nbformat>=4.2.0 # requirement for plotly in iPython
+streamlit
 black
