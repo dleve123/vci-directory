@@ -33,8 +33,13 @@ issuers_by_state_data = pd.read_json(
     typ='series'
 )
 
+# See https://plotly.com/python/choropleth-maps/#customize-choropleth-chart
+# for motivating example of customizing labels.
 states_with_issuers = issuers_by_state_data.index
+issuers_in_states_html_text = ['<br>'.join(issuers_in_a_state) for issuers_in_a_state in issuers_by_state_data.values]
+hover_text = [f"{state}: {issuers_html_text}" for state, issuers_html_text in (zip(states_with_issuers, issuers_in_states_html_text))]
 issuers_count_by_state = [len(issuers) for state, issuers in issuers_by_state_data.items()]
+
 issuers_by_state_map_fig = go.Figure(
     data=go.Choropleth(
         locations=states_with_issuers,
