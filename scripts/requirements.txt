@@ -13,12 +13,3 @@ pycparser==2.21
 rfc3986==1.5.0
 sniffio==1.2.0
 wrapt==1.13.3
-
-# analytics
-GitPython
-pandas
-ipykernel
-plotly # interactive plotting
-nbformat>=4.2.0 # requirement for plotly in iPython
-streamlit
-black
