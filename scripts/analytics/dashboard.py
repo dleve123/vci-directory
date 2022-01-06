@@ -7,13 +7,10 @@ import plotly.graph_objects as go
 st.title("SMART Health Cards Analytics Dashboard")
 
 issuer_count_data = pd.read_csv(
-    "./data/issuer_count_totals_over_time.csv",
+    st.secrets["issuer_count_over_time_data_path"],
     parse_dates=[0],
     infer_datetime_format=True,
 )
-
-with open("./data/issuers_by_state.json") as issuers_by_state_file:
-    issuers_by_state_data = json.load(issuers_by_state_file)
 
 issuer_count_fig = px.line(
     data_frame=issuer_count_data,
@@ -31,9 +28,12 @@ st.plotly_chart(issuer_count_fig)
 
 st.header("US Issuer Coverage")
 
-states_with_issuers = list(issuers_by_state_data.keys())
-issuers_in_states = list(issuers_by_state_data.values())
-hover_text = list(zip(states_with_issuers, issuers_in_states))
+issuers_by_state_data = pd.read_json(
+    st.secrets['issuer_count_by_state_data_path'],
+    typ='series'
+)
+
+states_with_issuers = issuers_by_state_data.index
 issuers_count_by_state = [len(issuers) for state, issuers in issuers_by_state_data.items()]
 issuers_by_state_map_fig = go.Figure(
     data=go.Choropleth(
