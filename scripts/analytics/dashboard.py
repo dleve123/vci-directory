@@ -7,12 +7,12 @@ import plotly.graph_objects as go
 st.title("SMART Health Cards Analytics Dashboard")
 
 issuer_count_data = pd.read_csv(
-    "data/issuer_count_totals_over_time.csv",
+    "./data/issuer_count_totals_over_time.csv",
     parse_dates=[0],
     infer_datetime_format=True,
 )
 
-with open("data/issuers_by_state.json") as issuers_by_state_file:
+with open("./data/issuers_by_state.json") as issuers_by_state_file:
     issuers_by_state_data = json.load(issuers_by_state_file)
 
 issuer_count_fig = px.line(
