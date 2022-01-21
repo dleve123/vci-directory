@@ -27,7 +27,7 @@ automatically updated on pushes to the `count-by-state` branch of this fork.
 ### Future State
 
 The proximate (and hopefully achievable) technical goals for this analytics project
-is to have:
+are to have:
 
 1. Automatic refreshing of data
 2. Collective ownership of the analytics dashboard (not tied to a personal account)
@@ -38,7 +38,7 @@ Given this, the following actions need to happen.
 ### Tactical Next Steps
 
 - [ ] Collective ownership of source code
-  - Recommendation: Merge this fork's branch into main repository
+  - Recommendation: Merge this fork's branch into upstream repository
   - Alternative: Migrate fork to a separate repo within the dvci or
     the-commons-project namespace.
 - [ ] Enable automatic refreshing of data
@@ -52,7 +52,7 @@ Given this, the following actions need to happen.
     -  Evaluate/pay for Streamlit cloud hosting or deploy to some VCI-member
     infrastructure
       - [Dockerfile example][dockerfile-example]
-    - Change references to raw data location depending upon implementation of above.
+    - Change references to raw data locations depending upon implementation of deployment platform.
     - Change continuous deployment setup (automatic dashboard deployment) to
       align with deployment platform.
 
