@@ -30,7 +30,7 @@ $ python scripts/analytics/count_issuers_by_state.py \
 
 ## Data Visualization
 
-We use [streamlit](https://streamlit.io/) as a Python-based dashboarding tool.
+We use [Streamlit](https://streamlit.io/) as a Python-based dashboarding tool.
 
 To run the streamlit dashboard locally _from `scripts/analytics`_:
 
