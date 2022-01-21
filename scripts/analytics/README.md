@@ -17,6 +17,17 @@ $ python scripts/analytics/count_issuers.py \
   scripts/analytics/data/issuer_count_totals_over_time.csv
 ```
 
+### Issuer by State Counting
+
+To regenerate the current distribution of issuers by USA state, run
+`count_issuers_by_state.py` from the root of the vci-directory.
+
+```bash
+$ python scripts/analytics/count_issuers_by_state.py \
+  vci-issuers-metadata.json > \
+  scripts/analytics/data/issuers_by_state.json
+```
+
 ## Data Visualization
 
 We use [streamlit](https://streamlit.io/) as a Python-based dashboarding tool.
