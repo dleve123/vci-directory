@@ -19,12 +19,6 @@ issuer_count_fig = px.line(
     y="total_num_issuers",
     title="Number of issuers in VCI Directory over time",
 )
-issuer_count_fig.update_layout(
-    xaxis_title="Date", yaxis_title="Total Number of Issuers"
-)
-
-st.header("VCI Issuer Count")
-st.plotly_chart(issuer_count_fig)
 
 st.header("US Issuer Coverage")
 
@@ -57,3 +51,10 @@ issuers_by_state_map_fig.update_layout(
     geo_scope='usa',
 )
 st.plotly_chart(issuers_by_state_map_fig)
+
+issuer_count_fig.update_layout(
+    xaxis_title="Date", yaxis_title="Total Number of Issuers"
+)
+
+st.header("VCI Issuer Count")
+st.plotly_chart(issuer_count_fig)
