@@ -6,6 +6,14 @@ import plotly.graph_objects as go
 
 st.title("SMART Health Cards Analytics Dashboard")
 
+st.write("""
+This is a work-in-progress dashboard regarding SMART Health Card issuers
+contained in the VCI directory.
+
+All underlying data, code, and documentation is available at:
+https://github.com/dleve123/vci-directory/tree/count-by-state/scripts/analytics
+""")
+
 issuer_count_data = pd.read_csv(
     st.secrets["issuer_count_over_time_data_path"],
     parse_dates=[0],
